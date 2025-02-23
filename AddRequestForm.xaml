@@ -1,0 +1,53 @@
+﻿<Window x:Class="project.AddRequestForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:project"
+        mc:Ignorable="d"
+        Title="AddRequestForm" Height="450" Width="800">
+
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="Номер заявки:" />
+            <TextBox x:Name="TextBoxNumber" />
+
+            <TextBlock Text="Дата добавления:" />
+            <DatePicker x:Name="DatePickerAddedDate" />
+
+            <TextBlock Text="Вид авто:" />
+            
+            <ComboBox x:Name="ComboBoxCarType" 
+                      ItemsSource="{Binding CarTypeDescriptions}" 
+                      SelectedItem="{Binding SelectedCarType, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Модель авто:" />
+            <TextBox x:Name="TextBoxCarModel" />
+
+            <TextBlock Text="Описание проблемы:" />
+            <TextBox x:Name="TextBoxDescription" />
+
+            <TextBlock Text="ФИО клиента:" />
+            <TextBox x:Name="TextBoxClientLFP" />
+
+            <TextBlock Text="Номер телефона:" />
+            <TextBox x:Name="TextBoxPhoneNumber" />
+
+            <TextBlock Text="Статус заявки:" />
+            <ComboBox x:Name="ComboBoxStatus" 
+            ItemsSource="{Binding RequestStatusDescriptions}" 
+            SelectedItem="{Binding SelectedRequestStatus, Mode=TwoWay}" />
+
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="Сохранить" Click="ButtonSave_Click" Margin="5"/>
+                <Button Content="Отмена" Click="ButtonCancel_Click" Margin="5"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
