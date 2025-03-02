@@ -92,5 +92,48 @@ namespace project
             string searchQuery = textBoxSearch.Text.ToLower(); 
             FilterRequests(searchQuery); 
         }
+
+        private void Button_report_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                var selectedRow = dataGrid.SelectedItem;
+                var selected = _requests.FirstOrDefault(r => r.Number == ((dynamic)selectedRow).Number);
+                if (selected != null)
+                {
+                    var reportForm = new ReportForm(new List<Request> { selected });
+                    reportForm.ShowDialog();
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите заявку для редактирования.");
+            }
+
+            
+        }
+
+        private void Button_add_spares_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                var selectedRow = dataGrid.SelectedItem;
+                var selectedRequest = _requests.FirstOrDefault(r => r.Number == ((dynamic)selectedRow).Number);
+                if (selectedRequest != null)
+                {
+                    var addSparePartsForm = new AddSparePartsForm(selectedRequest);
+                    if (addSparePartsForm.ShowDialog() == true)
+                    {
+                        MessageBox.Show("Запчасти успешно добавлены.");
+                        LoadRequests(); 
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите заявку для добавления запчастей.");
+            }
+        }
     }
 }

@@ -10,8 +10,10 @@
         <Button x:Name="buttonAdd" Content="Добавить" HorizontalAlignment="Left" Margin="10,352,0,0" VerticalAlignment="Top" Height="62" Width="208" Click="buttonAdd_Click_1"/>
         <Button x:Name="buttonEdit" Content="Редактировать" HorizontalAlignment="Left" Margin="574,352,0,0" VerticalAlignment="Top" Height="62" Width="216" Click="buttonEdit_Click_1"/>
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,0,0,87"/>
-        <TextBox x:Name="textBoxSearch" HorizontalAlignment="Left" Margin="413,365,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="Button_search" Content="🔎" HorizontalAlignment="Left" Margin="319,365,0,0" VerticalAlignment="Top" Width="81" Height="19" Click="Button_search_Click"/>
+        <TextBox x:Name="textBoxSearch" HorizontalAlignment="Left" Margin="309,353,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="Button_search" Content="🔎" HorizontalAlignment="Left" Margin="223,352,0,0" VerticalAlignment="Top" Width="81" Height="19" Click="Button_search_Click"/>
+        <Button x:Name="Button_report" Content="Отчет" HorizontalAlignment="Left" Margin="224,376,0,0" VerticalAlignment="Top" Width="205" Click="Button_report_Click"/>
+        <Button x:Name="Button_add_spares" Content="Добавить запчасти" HorizontalAlignment="Left" Margin="434,353,0,0" VerticalAlignment="Top" Width="135" Click="Button_add_spares_Click"/>
 
     </Grid>
 </Window>

@@ -9,7 +9,7 @@ namespace project
         private ApplicationContext _context;
         private Request _request;
 
-        // Событие для изменения статуса заявки
+        
         public event EventHandler<RequestStatusChangedEventArgs> RequestStatusChanged;
 
         public RequestForm(ApplicationContext context, Request request)

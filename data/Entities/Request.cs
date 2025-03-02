@@ -40,5 +40,6 @@ namespace project.Entities
         /// </summary>
         public RequestStatus Status { get; set; }
         public string ResponsibleMechanic { get; set; }
+        public List<string> SpareParts { get; set; } = new List<string>();
     }
 }

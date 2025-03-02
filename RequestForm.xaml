@@ -12,7 +12,7 @@
             <TextBlock Text="Описание проблемы:" />
             <TextBox x:Name="textBoxDescription" Margin="0,0,0,10" TextWrapping="Wrap" Height="50" />
 
-            <TextBlock Text="Ответственный:" />
+            <TextBlock Text="Механник:" />
             <TextBox x:Name="textBoxMechanic" Margin="0,0,0,10" TextWrapping="Wrap" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
