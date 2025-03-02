@@ -1,10 +1,21 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+using project.Entities;
 
-namespace project.Entities
+namespace project
 {
+    public class RequestStatusChangedEventArgs : EventArgs
+    {
+        public Request Request { get; }
+        public RequestStatus NewStatus { get; }
+
+        public RequestStatusChangedEventArgs(Request request, RequestStatus newStatus)
+        {
+            Request = request;
+            NewStatus = newStatus;
+        }
+    }
+
     public class ApplicationContext : IDisposable
     {
         private bool _isDisposed = false;
@@ -16,47 +27,43 @@ namespace project.Entities
         public ObservableCollection<Mechanic> Mechanics => mechanics;
         public ObservableCollection<MechanicRequests> MechanicRequests => mechanicRequests;
 
+        
+        public event EventHandler<RequestStatusChangedEventArgs> RequestStatusChanged;
+
        
-        public ObservableCollection<Request> GetAllRequests()
+        public void UpdateRequestStatus(Request request, RequestStatus newStatus)
         {
-            return Requests;
-        }
+            
+            request.Status = newStatus;
+            
 
-        
-        public List<string> GetRequestStatusDescriptions()
-        {
-            return Enum.GetValues(typeof(RequestStatus))
-                       .Cast<RequestStatus>()
-                       .Select(status => GetEnumDescription(status))
-                       .ToList();
+            
+            OnRequestStatusChanged(new RequestStatusChangedEventArgs(request, newStatus));
         }
-
-        
-        private string GetEnumDescription(RequestStatus status)
-        {
-            var fieldInfo = status.GetType().GetField(status.ToString());
-            var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : status.ToString();
-        }
-
-        public void AddMechanic(string fullName)
-        {
-            mechanics.Add(new Mechanic { LFP = fullName });
-        }
-
         public void AddRequest(Request request)
         {
-            requests.Add(request); 
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request), "Заявка не может быть null.");
+            }
+
+            requests.Add(request);
+            
+        }
+       
+        protected virtual void OnRequestStatusChanged(RequestStatusChangedEventArgs e)
+        {
+            RequestStatusChanged?.Invoke(this, e);
         }
 
+       
         protected virtual void Dispose(bool disposing)
         {
             if (!_isDisposed)
             {
-               
                 if (disposing)
                 {
-                    
+                   
                 }
                 _isDisposed = true;
             }

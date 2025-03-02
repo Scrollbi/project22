@@ -9,11 +9,14 @@ namespace project
         private ApplicationContext _context;
         private Request _request;
 
+        // Событие для изменения статуса заявки
+        public event EventHandler<RequestStatusChangedEventArgs> RequestStatusChanged;
+
         public RequestForm(ApplicationContext context, Request request)
         {
             InitializeComponent();
             _context = context;
-            _request = request; 
+            _request = request;
             InitializeFields();
         }
 
@@ -23,42 +26,45 @@ namespace project
                 .Select(status => new RequestStatusItem
                 {
                     Status = status,
-                    Description = status.GetDescription() 
+                    Description = status.GetDescription()
                 })
                 .ToList();
 
-            // Устанавливаем текущий статус
             comboBoxStatus.SelectedItem = comboBoxStatus.Items
                 .Cast<RequestStatusItem>()
                 .FirstOrDefault(item => item.Status == _request.Status);
 
-            textBoxDescription.Text = _request.Description; 
-            textBoxMechanic.Text = _request.ResponsibleMechanic; 
+            textBoxDescription.Text = _request.Description;
+            textBoxMechanic.Text = _request.ResponsibleMechanic;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             if (comboBoxStatus.SelectedItem is RequestStatusItem selectedStatus)
             {
-                _request.Status = selectedStatus.Status; 
+                
+                _context.UpdateRequestStatus(_request, selectedStatus.Status);
+
+               
             }
             else
             {
-                MessageBox.Show("Выберите корректный статус."); 
+                MessageBox.Show("Выберите корректный статус.");
                 return;
             }
 
             _request.Description = textBoxDescription.Text;
-            _request.ResponsibleMechanic = textBoxMechanic.Text; 
+            _request.ResponsibleMechanic = textBoxMechanic.Text;
 
             DialogResult = true; 
-            Close(); 
+            Close();
         }
+
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; 
-            Close(); 
+            DialogResult = false;
+            Close();
         }
     }
 }
